@@ -328,172 +328,92 @@ Log Out My User Session Of TM-Uploader
 
 *** Test Cases ***
 
+# Check, test and validate first all the Keywords
+
 Test01
     [Documentation]    Reset the test results
     [Tags]    CRITICALITY LOW
     Remove My Previous Results
 
 Test02
+    [Documentation]    Check that Watchdog is running
+    [Tags]    CRITICALITY NORMAL
+    Check That Watchdog Is Running
+
+Test03
+    [Documentation]    Check the version number of Watchdog
+    [Tags]    CRITICALITY NORMAL
+    Check Version Of Watchdog
+
+Test04
     [Documentation]    Check that Site Manager is running
     [Tags]    CRITICALITY NORMAL
     Check That Site Manager Is Running
 
-Test03
+Test05
     [Documentation]    Check the version number of Site Manager
     [Tags]    CRITICALITY NORMAL
     Check Version Of Site Manager
 
-Test04
+Test06
     [Documentation]    Check that Audit is running, and then check the version number of the application
     [Tags]    CRITICALITY NORMAL
     Check That Telemis Entity Is Running    ${MyEntityPort1}
     Check Version Of Telemis Entity    ${MyEntityName1}    ${MyEntityPort1}
 
-Test05
-    [Documentation]    User enters the login and password to access Site Manager
+Test07
+    [Documentation]    Check that DICOM gate is running, and then check the version number of the application
+    [Tags]    CRITICALITY NORMAL
+    Check That Telemis Entity Is Running    ${MyEntityPort2}
+    Check Version Of Telemis Entity    ${MyEntityName2}    ${MyEntityPort2}
+
+Test08
+    [Documentation]    Check that HL7 Gate is running, and then check the version number of the application
+    [Tags]    CRITICALITY NORMAL
+    Check That Telemis Entity Is Running    ${MyEntityPort3}
+    Check Version Of Telemis Entity    ${MyEntityName3}    ${MyEntityPort3}
+
+Test09
+    [Documentation]    Check that Telemis-Patient is running, and then check the version number of the application
+    [Tags]    CRITICALITY NORMAL
+    Check That Telemis Entity Is Running    ${MyEntityPort4}
+    Check Version Of Telemis Entity    ${MyEntityName4}    ${MyEntityPort4}
+
+Test10
+    [Documentation]    Check that Telemis-Registry is running, and then check the version number of the application
+    [Tags]    CRITICALITY NORMAL
+    Check That Telemis Entity Is Running    ${MyEntityPort5}
+    Check Version Of Telemis Entity    ${MyEntityName5}    ${MyEntityPort5}
+
+Test11
+    [Documentation]    Check that Telemis-Repository is running, and then check the version number of the application
+    [Tags]    CRITICALITY NORMAL
+    Check That Telemis Entity Is Running    ${MyEntityPort6}
+    Check Version Of Telemis Entity    ${MyEntityName6}    ${MyEntityPort6}
+
+Test12
+    [Documentation]    Check that Telemis-User is running, and then check the version number of the application
+    [Tags]    CRITICALITY NORMAL
+    Check That Telemis Entity Is Running    ${MyEntityPort7}
+    Check Version Of Telemis Entity    ${MyEntityName7}    ${MyEntityPort7}
+
+Test13
+    [Documentation]    Check that Telemis-Worklist is running, and then check the version number of the application
+    [Tags]    CRITICALITY NORMAL
+    Check That Telemis Entity Is Running    ${MyEntityPort8}
+    Check Version Of Telemis Entity    ${MyEntityName8}    ${MyEntityPort8}
+
+Test14
+    [Documentation]    User enter the login and password to access Site Manager
     [Tags]    CRITICALITY HIGH
     My User Opens Internet Browser And Connects To Site Manager    ${SiteManagerUser1Login}    ${SiteManagerUser1Password}
+
+Test15
+    [Documentation]    Take a screenshot of the screen monitor
+    [Tags]    CRITICALITY NORMAL
     Take My Screenshot
 
-Test06
-    [Documentation]    User selects and opens the interface of Audit
-    [Tags]    CRITICALITY HIGH
-    Wait Until Element Is Visible    link=Audit    timeout=15s
-    Element Should Be Visible    link=Audit
-    Click Link    link=Audit
-    Sleep    3s
-    # Select the iframe of Audit
-    # The locator of the iframe is NOT "class=ng-star-inserted", I tested it and it does NOT work.
-    Wait Until Element Is Visible    xpath=/html/body/app-root/div/div[2]/app-external-page/iframe    timeout=15s
-    Frame Should Contain    xpath=/html/body/app-root/div/div[2]/app-external-page/iframe    Predefined search
-    Select Frame    xpath=/html/body/app-root/div/div[2]/app-external-page/iframe
-    Wait Until Page Contains    Predefined search    timeout=15s
-    Current Frame Should Contain    Predefined search
-    # Check that the first tab Presets is selected by default, and not the second tab Search (the text Timestamp exists only in the second tab)
-    Current Frame Should Not Contain    Timestamp
-    Wait Until Element Is Visible    link=Presets    timeout=15s
-    Wait Until Element Is Visible    link=Search    timeout=15s
-    Element Should Be Visible    link=Presets
-    Element Should Be Visible    link=Search
-    # The line below is only for tests
-    # Unselect Frame
-
-Test 07
-    [Documentation]    Test the tab Search
-    [Tags]    CRITICALITY HIGH
-    Wait Until Element Is Visible    link=Search    timeout=15s
-    Element Should Be Visible    link=Search
-    Click Link    link=Search
-    # Check 12 search criteria
-    Wait Until Element Is Visible    name=outcome    timeout=15s
-    Wait Until Element Is Visible    name=from    timeout=15s
-    Wait Until Element Is Visible    name=to    timeout=15s
-    Wait Until Element Is Visible    name=action    timeout=15s
-    Wait Until Element Is Visible    name=eventType    timeout=15s
-    Wait Until Element Is Visible    name=user    timeout=15s
-    Wait Until Element Is Visible    name=source    timeout=15s
-    Wait Until Element Is Visible    name=destination    timeout=15s
-    Wait Until Element Is Visible    name=patientId    timeout=15s
-    Wait Until Element Is Visible    name=patientName    timeout=15s
-    Wait Until Element Is Visible    name=accessionNumber    timeout=15s
-    Wait Until Element Is Visible    name=documentId    timeout=15s
-    # Check 7 columns of the table
-    Wait Until Page Contains    Outcome    timeout=15s
-    Wait Until Page Contains    Timestamp    timeout=15s
-    Wait Until Page Contains    Event    timeout=15s
-    Wait Until Page Contains    User    timeout=15s
-    Wait Until Page Contains    Source    timeout=15s
-    Wait Until Page Contains    Destination    timeout=15s
-    Wait Until Page Contains    Patient    timeout=15s
-    Wait Until Page Contains    Accession Number    timeout=15s
-    # Fill the search criteria
-    # Select one item from the combo box Outcome
-    Element Should Be Visible    name=outcome
-    Click Element    name=outcome
-    Wait Until Element Is Visible    xpath=//span[contains(.,' SUCCESS')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' FAILURE')]    timeout=15s
-    Element Should Be Visible    xpath=//span[contains(.,' SUCCESS')]
-    Click Element    xpath=//span[contains(.,' SUCCESS')]
-    # The 3 lines mentioned below do not work with the keyword Get Value of BuiltIn
-    # ${MyValue} =    Get Value    name=outcome
-    # Log    ${MyValue}
-    # Should Contain    ${MyValue}    SUCCESS
-    Wait Until Element Contains    name=outcome    SUCCESS    timeout=15s
-
-    # Search criterion From
-    Input Text    name=from    ${MyDateFrom1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=from    ${MyDateFrom1}
-    # Search criterion To
-    Input Text    name=to    ${MyDateTo1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=to    ${MyDateTo1}
-
-    # Select one item from the combo box Action
-    Element Should Be Visible    name=action
-    Click Element    name=action
-    Wait Until Element Is Visible    xpath=//span[contains(.,' CREATE')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' READ')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' UPDATE')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' DELETE')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' EXECUTE')]    timeout=15s
-    Element Should Be Visible    xpath=//span[contains(.,' EXECUTE')]
-    Click Element    xpath=//span[contains(.,' EXECUTE')]
-    Wait Until Element Contains    name=action    EXECUTE    timeout=15s
-
-    # Select one item from the combo box Event
-    Element Should Be Visible    name=eventType
-    Click Element    name=eventType
-    Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_ACCESS')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_FORWARD')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_START_TRANSFER')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_STORE')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_TRANSFER')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,'FILMER')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,'LABEL_MGT')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,'MEASURES_MGT')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,'USER_LOGIN')]    timeout=15s
-    Element Should Be Visible    xpath=//span[contains(.,'FILMER')]
-    Click Element    xpath=//span[contains(.,'FILMER')]
-    Sleep    1s
-    # The check fails with the keyword Wait Until Element Contains, see example below, you must check with the keyword Get Value
-    # Wait Until Element Contains    name=eventType    FILMER    timeout=15s
-    ${MyValue} =    Get Value    name=eventType
-    Log    ${MyValue}
-    Should Contain    ${MyValue}    FILMER
-
-    # Search criterion User
-    Input Text    name=user    ${SiteManagerUser2Login}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=user    ${SiteManagerUser2Login}
-    # Search criterion Source
-    Input Text    name=source    ${MySource1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=source    ${MySource1}
-    # Search criterion Destination
-    Input Text    name=destination    ${MyDestination1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=destination    ${MyDestination1}
-    # Search criterion Patient ID
-    Input Text    name=patientId    ${MyPatient1PatientID}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=patientId    ${MyPatient1PatientID}
-    # Search criterion Patient name
-    Input Text    name=patientName    ${MyPatient1FamilyName}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=patientName    ${MyPatient1FamilyName}
-    # Search criterion Accession Number
-    Input Text    name=accessionNumber    ${MyPatient1AccessionNumber}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=accessionNumber    ${MyPatient1AccessionNumber}
-    # Search criterion Document ID
-    Input Text    name=documentId    ${MyDocId1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=documentId    ${MyDocId1}
-    Sleep    1s
-    Take My Screenshot
-    # Empty all the fields
-    Wait Until Element Is Visible    xpath=//button[contains(.,'Clear')]    timeout=15s
-    Click Button    xpath=//button[contains(.,'Clear')]
-    Wait Until Element Contains    name=patientName    ${EMPTY}    timeout=15s
-    Textfield Value Should Be    name=patientName    ${EMPTY}
-    Take My Screenshot
-    Unselect Frame
-
-Test90
+Test16
     [Documentation]    User exits Site Manager
     [Tags]    CRITICALITY NORMAL
-    # Before logging out the user session, check that the iframe has been deselected
     Log Out My User Session Of Site Manager
-    Close All Browsers

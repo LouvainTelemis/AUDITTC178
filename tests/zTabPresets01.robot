@@ -117,6 +117,45 @@ ${MyDocId1}    A2.sim.c88d.be.simon.P1.1
 ${MyDateFrom1}    01/01/2025
 ${MyDateTo1}    02/23/2025
 
+# xpath of input boxes located in the tab Presets (Predefined search)
+
+${Preset01z01}    xpath=//span[contains(.,'Type')]
+
+${Preset02z01}    xpath=//div/div/input
+${Preset02z02}    xpath=//div[2]/mat-form-field/div/div/div/input
+
+${Preset03z01}    xpath=//fieldset[3]/form/div/div/mat-form-field/div/div/div/input
+${Preset03z02}    xpath=//fieldset[3]/form/div/div[2]/mat-form-field/div/div/div/input
+
+${Preset04z01}    xpath=//div[3]/div/fieldset/form/div/div/mat-form-field/div/div/div/input
+${Preset04z02}    xpath=//div[3]/div/fieldset/form/div/div[2]/mat-form-field/div/div/div/input
+
+${Preset05z01}    xpath=//div[4]/div/fieldset/form/div/div/mat-form-field/div/div/div/input
+
+${Preset06z01}    xpath=//div[4]/div/fieldset[2]/form/div/div/mat-form-field/div/div/div/input
+${Preset06z02}    xpath=//div[4]/div/fieldset[2]/form/div/div[2]/mat-form-field/div/div/div/input
+
+${Preset07z01}    xpath=//div[5]/div/fieldset/form/div/div/mat-form-field/div/div/div/input
+${Preset07z02}    xpath=//div[5]/div/fieldset/form/div/div[2]/mat-form-field/div/div/div/input
+
+${Preset08z01}    xpath=//div[5]/div/fieldset[2]/form/div/div/mat-form-field/div/div/div/input
+${Preset08z02}    xpath=//div[5]/div/fieldset[2]/form/div/div[2]/mat-form-field/div/div/div/input
+
+${Preset09z01}    xpath=//div[5]/div/fieldset[3]/form/div/div/mat-form-field/div/div/div/input
+${Preset09z02}    xpath=//div[5]/div/fieldset[3]/form/div/div[2]/mat-form-field/div/div/div/input
+
+${Preset10z01}    xpath=//div[6]/div/fieldset/form/div/div/mat-form-field/div/div/div/input
+${Preset10z02}    xpath=//div[6]/div/fieldset/form/div/div[2]/mat-form-field/div/div/div/input
+
+${Preset11z01}    xpath=//div[6]/div/fieldset[2]/form/div/div/mat-form-field/div/div/div/input
+${Preset11z02}    xpath=//div[6]/div/fieldset[2]/form/div/div[2]/mat-form-field/div/div/div/input
+
+${Preset12z01}    xpath=//div[6]/div/fieldset[3]/form/div/div/mat-form-field/div/div/div/input
+${Preset12z02}    xpath=//div[6]/div/fieldset[3]/form/div/div[2]/mat-form-field/div/div/div/input
+
+${Preset13z01}    xpath=//fieldset[4]/form/div/div/mat-form-field/div/div/div/input
+
+
 
 *** Keywords ***
 
@@ -329,33 +368,12 @@ Log Out My User Session Of TM-Uploader
 *** Test Cases ***
 
 Test01
-    [Documentation]    Reset the test results
-    [Tags]    CRITICALITY LOW
-    Remove My Previous Results
-
-Test02
-    [Documentation]    Check that Site Manager is running
-    [Tags]    CRITICALITY NORMAL
-    Check That Site Manager Is Running
-
-Test03
-    [Documentation]    Check the version number of Site Manager
-    [Tags]    CRITICALITY NORMAL
-    Check Version Of Site Manager
-
-Test04
-    [Documentation]    Check that Audit is running, and then check the version number of the application
-    [Tags]    CRITICALITY NORMAL
-    Check That Telemis Entity Is Running    ${MyEntityPort1}
-    Check Version Of Telemis Entity    ${MyEntityName1}    ${MyEntityPort1}
-
-Test05
     [Documentation]    User enters the login and password to access Site Manager
     [Tags]    CRITICALITY HIGH
     My User Opens Internet Browser And Connects To Site Manager    ${SiteManagerUser1Login}    ${SiteManagerUser1Password}
     Take My Screenshot
 
-Test06
+Test02
     [Documentation]    User selects and opens the interface of Audit
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Audit    timeout=15s
@@ -378,70 +396,29 @@ Test06
     # The line below is only for tests
     # Unselect Frame
 
-Test 07
-    [Documentation]    Test the tab Search
+Test 03
+    [Documentation]    Test the tab Presets
     [Tags]    CRITICALITY HIGH
-    Wait Until Element Is Visible    link=Search    timeout=15s
-    Element Should Be Visible    link=Search
-    Click Link    link=Search
-    # Check 12 search criteria
-    Wait Until Element Is Visible    name=outcome    timeout=15s
-    Wait Until Element Is Visible    name=from    timeout=15s
-    Wait Until Element Is Visible    name=to    timeout=15s
-    Wait Until Element Is Visible    name=action    timeout=15s
-    Wait Until Element Is Visible    name=eventType    timeout=15s
-    Wait Until Element Is Visible    name=user    timeout=15s
-    Wait Until Element Is Visible    name=source    timeout=15s
-    Wait Until Element Is Visible    name=destination    timeout=15s
-    Wait Until Element Is Visible    name=patientId    timeout=15s
-    Wait Until Element Is Visible    name=patientName    timeout=15s
-    Wait Until Element Is Visible    name=accessionNumber    timeout=15s
-    Wait Until Element Is Visible    name=documentId    timeout=15s
-    # Check 7 columns of the table
-    Wait Until Page Contains    Outcome    timeout=15s
-    Wait Until Page Contains    Timestamp    timeout=15s
-    Wait Until Page Contains    Event    timeout=15s
-    Wait Until Page Contains    User    timeout=15s
-    Wait Until Page Contains    Source    timeout=15s
-    Wait Until Page Contains    Destination    timeout=15s
-    Wait Until Page Contains    Patient    timeout=15s
-    Wait Until Page Contains    Accession Number    timeout=15s
-    # Fill the search criteria
-    # Select one item from the combo box Outcome
-    Element Should Be Visible    name=outcome
-    Click Element    name=outcome
-    Wait Until Element Is Visible    xpath=//span[contains(.,' SUCCESS')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' FAILURE')]    timeout=15s
-    Element Should Be Visible    xpath=//span[contains(.,' SUCCESS')]
-    Click Element    xpath=//span[contains(.,' SUCCESS')]
-    # The 3 lines mentioned below do not work with the keyword Get Value of BuiltIn
-    # ${MyValue} =    Get Value    name=outcome
-    # Log    ${MyValue}
-    # Should Contain    ${MyValue}    SUCCESS
-    Wait Until Element Contains    name=outcome    SUCCESS    timeout=15s
-
-    # Search criterion From
-    Input Text    name=from    ${MyDateFrom1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=from    ${MyDateFrom1}
-    # Search criterion To
-    Input Text    name=to    ${MyDateTo1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=to    ${MyDateTo1}
-
-    # Select one item from the combo box Action
-    Element Should Be Visible    name=action
-    Click Element    name=action
-    Wait Until Element Is Visible    xpath=//span[contains(.,' CREATE')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' READ')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' UPDATE')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' DELETE')]    timeout=15s
-    Wait Until Element Is Visible    xpath=//span[contains(.,' EXECUTE')]    timeout=15s
-    Element Should Be Visible    xpath=//span[contains(.,' EXECUTE')]
-    Click Element    xpath=//span[contains(.,' EXECUTE')]
-    Wait Until Element Contains    name=action    EXECUTE    timeout=15s
-
-    # Select one item from the combo box Event
-    Element Should Be Visible    name=eventType
-    Click Element    name=eventType
+    Wait Until Element Is Visible    link=Presets    timeout=15s
+    Element Should Be Visible    link=Presets
+    Click Link    link=Presets
+    # Check 13 presets
+    Wait Until Page Contains    All audit events related to its type    timeout=15s
+    Wait Until Page Contains    Who made a Dicom Query    timeout=15s
+    Wait Until Page Contains    Who made a Dicom Send    timeout=15s
+    Wait Until Page Contains    Who removed a label    timeout=15s
+    Wait Until Page Contains    All events related to an audit source    timeout=15s
+    Wait Until Page Contains    All events that happened between dates    timeout=15s
+    Wait Until Page Contains    All events related to a patient    timeout=15s
+    Wait Until Page Contains    Who accessed a patient    timeout=15s
+    Wait Until Page Contains    Who modified a patient    timeout=15s
+    Wait Until Page Contains    All events related to a document    timeout=15s
+    Wait Until Page Contains    Who accessed a document    timeout=15s
+    Wait Until Page Contains    Who deleted a document    timeout=15s
+    Wait Until Page Contains    Who modified a study    timeout=15s
+    # Test the preset 01 All audit events related to its type
+    Wait Until Element Is Visible    xpath=//span[contains(.,'Type')]    timeout=15s
+    Click Element    xpath=//span[contains(.,'Type')]
     Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_ACCESS')]    timeout=15s
     Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_FORWARD')]    timeout=15s
     Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_START_TRANSFER')]    timeout=15s
@@ -453,47 +430,163 @@ Test 07
     Wait Until Element Is Visible    xpath=//span[contains(.,'USER_LOGIN')]    timeout=15s
     Element Should Be Visible    xpath=//span[contains(.,'FILMER')]
     Click Element    xpath=//span[contains(.,'FILMER')]
-    Sleep    1s
-    # The check fails with the keyword Wait Until Element Contains, see example below, you must check with the keyword Get Value
-    # Wait Until Element Contains    name=eventType    FILMER    timeout=15s
-    ${MyValue} =    Get Value    name=eventType
+    Wait Until Element Contains    xpath=//span[contains(.,'FILMER')]    FILMER    timeout=15s
+    # You can also make the check with the keyword Get Text, the check fails with the keyword Get Value, you must use Get Text instead of Get Value
+    ${MyValue} =    Get Text    xpath=//span[contains(.,'FILMER')]
     Log    ${MyValue}
     Should Contain    ${MyValue}    FILMER
+    # It is the third solution to make the check
+    Wait Until Keyword Succeeds    15s    3s    Element Should Contain    xpath=//span[contains(.,'FILMER')]    FILMER
+    # Check the buttons Clear and Search
+    Wait Until Element Is Visible    xpath=//button[contains(.,' Clear')]    timeout=15s
+    Wait Until Element Is Visible    xpath=//button[contains(.,' Search')]    timeout=15s
+    Element Should Be Visible    xpath=//button[contains(.,' Clear')]
+    Click Element    xpath=//button[contains(.,' Clear')]
+    # ${MyValue} =    Get Text    xpath=//span[contains(.,'Type')]
+    # Log    ${MyValue}
+    Wait Until Element Contains    xpath=//span[contains(.,'Type')]    Type    timeout=15s
 
-    # Search criterion User
-    Input Text    name=user    ${SiteManagerUser2Login}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=user    ${SiteManagerUser2Login}
-    # Search criterion Source
-    Input Text    name=source    ${MySource1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=source    ${MySource1}
-    # Search criterion Destination
-    Input Text    name=destination    ${MyDestination1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=destination    ${MyDestination1}
-    # Search criterion Patient ID
-    Input Text    name=patientId    ${MyPatient1PatientID}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=patientId    ${MyPatient1PatientID}
-    # Search criterion Patient name
-    Input Text    name=patientName    ${MyPatient1FamilyName}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=patientName    ${MyPatient1FamilyName}
-    # Search criterion Accession Number
-    Input Text    name=accessionNumber    ${MyPatient1AccessionNumber}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=accessionNumber    ${MyPatient1AccessionNumber}
-    # Search criterion Document ID
-    Input Text    name=documentId    ${MyDocId1}    clear=True
-    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    name=documentId    ${MyDocId1}
+    # Test the preset 02 Who made a Dicom Query
+    # Test the preset 03 Who made a Dicom Send
+    # Test the preset 04 Who removed a label
+    # Test the preset 05 All events related to an audit source (TMRHE, TMAA, TMP, Uploader...)
+    # Wait Until Element Is Visible    xpath=//div[4]/div/fieldset/form/div/div/mat-form-field/div/div/div/input    timeout=15s
+    # Input Text    xpath=//div[4]/div/fieldset/form/div/div/mat-form-field/div/div/div/input    TMAA2.simon.be    clear=True
+    # Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    xpath=//div[4]/div/fieldset/form/div/div/mat-form-field/div/div/div/input    TMAA2.simon.be
+    # Sleep    5s
+    # Test the preset 06 All events that happened between dates
+    # Test the preset 07 All events related to a patient
+    # Test the preset 08 Who accessed a patient
+    # Test the preset 09 Who modified a patient
+    # Test the preset 10 All events related to a document
+    # Test the preset 11 Who accessed a document
+    # Test the preset 12 Who deleted a document
+    # Test the preset 13 Who modified a study
+
+    Input Text    ${Preset02z01}    Preset02z01    clear=True
+    Input Text    ${Preset02z02}    Preset02z02    clear=True
+    Input Text    ${Preset03z01}    Preset03z01    clear=True
+    Input Text    ${Preset03z02}    Preset03z02    clear=True
+    Input Text    ${Preset04z01}    Preset04z01    clear=True
+    Input Text    ${Preset04z02}    Preset04z02    clear=True
+
+    Input Text    ${Preset05z01}    Preset05z01    clear=True
+    Take My Screenshot
+
+    Input Text    ${Preset06z01}    01/01/2025    clear=True
+    Input Text    ${Preset06z02}    03/01/2025    clear=True
+    Input Text    ${Preset07z01}    Preset07z01    clear=True
+    Input Text    ${Preset07z02}    Preset07z02    clear=True
+    Input Text    ${Preset08z01}    Preset08z01    clear=True
+    Input Text    ${Preset08z02}    Preset08z02    clear=True
+    Input Text    ${Preset09z01}    Preset09z01    clear=True
+    Input Text    ${Preset09z02}    Preset09z02    clear=True
+    Input Text    ${Preset10z01}    Preset10z01    clear=True
+    Input Text    ${Preset10z02}    Preset10z02    clear=True
+    Input Text    ${Preset11z01}    Preset11z01    clear=True
+    Input Text    ${Preset11z02}    Preset11z02    clear=True
+    Input Text    ${Preset12z01}    Preset12z01    clear=True
+    Input Text    ${Preset12z02}    Preset12z02    clear=True
+    Input Text    ${Preset13z01}    Preset13z01    clear=True
+
+    Sleep    5s
+    Take My Screenshot
+
+Test 04
+    [Documentation]    Test the tab Search
+    [Tags]    CRITICALITY HIGH
+    Wait Until Element Is Visible    link=Search    timeout=15s
+    Element Should Be Visible    link=Search
+    Click Link    link=Search
+    Sleep    3s
+    Wait Until Element Is Visible    name=eventType    timeout=15s
+    # Select one item from the combo box Event
+    Element Should Be Visible    name=eventType
+    Click Element    name=eventType
+    Element Should Be Visible    xpath=//span[contains(.,'FILMER')]
+    Click Element    xpath=//span[contains(.,'FILMER')]
     Sleep    1s
-    Take My Screenshot
-    # Empty all the fields
-    Wait Until Element Is Visible    xpath=//button[contains(.,'Clear')]    timeout=15s
-    Click Button    xpath=//button[contains(.,'Clear')]
-    Wait Until Element Contains    name=patientName    ${EMPTY}    timeout=15s
-    Textfield Value Should Be    name=patientName    ${EMPTY}
-    Take My Screenshot
-    Unselect Frame
 
-Test90
-    [Documentation]    User exits Site Manager
-    [Tags]    CRITICALITY NORMAL
-    # Before logging out the user session, check that the iframe has been deselected
-    Log Out My User Session Of Site Manager
-    Close All Browsers
+Test 05
+    [Documentation]    Test the tab Presets (2nd time)
+    [Tags]    CRITICALITY HIGH
+    Wait Until Element Is Visible    link=Presets    timeout=15s
+    Element Should Be Visible    link=Presets
+    Click Link    link=Presets
+    Sleep    4s
+    Input Text    ${Preset02z01}    Preset02z01    clear=True
+    Input Text    ${Preset02z02}    Preset02z02    clear=True
+    Input Text    ${Preset03z01}    Preset03z01    clear=True
+    Input Text    ${Preset03z02}    Preset03z02    clear=True
+    Input Text    ${Preset04z01}    Preset04z01    clear=True
+    Input Text    ${Preset04z02}    Preset04z02    clear=True
+    Sleep    3s
+    Take My Screenshot
+
+    Input Text    ${Preset05z01}    Preset05z01    clear=True
+
+    Input Text    ${Preset06z01}    01/01/2025    clear=True
+    Input Text    ${Preset06z02}    03/01/2025    clear=True
+    Input Text    ${Preset07z01}    Preset07z01    clear=True
+    Input Text    ${Preset07z02}    Preset07z02    clear=True
+    Input Text    ${Preset08z01}    Preset08z01    clear=True
+    Input Text    ${Preset08z02}    Preset08z02    clear=True
+    Input Text    ${Preset09z01}    Preset09z01    clear=True
+    Input Text    ${Preset09z02}    Preset09z02    clear=True
+    Input Text    ${Preset10z01}    Preset10z01    clear=True
+    Input Text    ${Preset10z02}    Preset10z02    clear=True
+    Input Text    ${Preset11z01}    Preset11z01    clear=True
+    Input Text    ${Preset11z02}    Preset11z02    clear=True
+    Input Text    ${Preset12z01}    Preset12z01    clear=True
+    Input Text    ${Preset12z02}    Preset12z02    clear=True
+    Input Text    ${Preset13z01}    Preset13z01    clear=True
+    Sleep    3s
+    Take My Screenshot
+
+Test 06
+    [Documentation]    Test the tab Search (2nd time)
+    [Tags]    CRITICALITY HIGH
+    Wait Until Element Is Visible    link=Search    timeout=15s
+    Element Should Be Visible    link=Search
+    Click Link    link=Search
+    Sleep    3s
+    Wait Until Element Is Visible    name=eventType    timeout=15s
+    # Select one item from the combo box Event
+    Element Should Be Visible    name=eventType
+    Click Element    name=eventType
+    Element Should Be Visible    xpath=//span[contains(.,'FILMER')]
+    Click Element    xpath=//span[contains(.,'FILMER')]
+    Sleep    1s
+
+Test 07
+    [Documentation]    Test the tab Presets (3rd time)
+    [Tags]    CRITICALITY HIGH
+    Wait Until Element Is Visible    link=Presets    timeout=15s
+    Element Should Be Visible    link=Presets
+    Click Link    link=Presets
+    Sleep    4s
+
+    Input Text    ${Preset03z02}    Preset03z02    clear=True
+
+    Input Text    ${Preset04z02}    Preset04z02    clear=True
+    Sleep    3s
+    Take My Screenshot
+
+    Input Text    ${Preset05z01}    Preset05z01    clear=True
+
+    Input Text    ${Preset06z01}    01/01/2025    clear=True
+    Input Text    ${Preset06z02}    03/01/2025    clear=True
+    Input Text    ${Preset07z01}    Preset07z01    clear=True
+    Input Text    ${Preset07z02}    Preset07z02    clear=True
+    Input Text    ${Preset08z01}    Preset08z01    clear=True
+
+    Input Text    ${Preset09z01}    Preset09z01    clear=True
+    Input Text    ${Preset09z02}    Preset09z02    clear=True
+    Input Text    ${Preset10z01}    Preset10z01    clear=True
+    Input Text    ${Preset10z02}    Preset10z02    clear=True
+
+    Input Text    ${Preset12z01}    Preset12z01    clear=True
+    Input Text    ${Preset12z02}    Preset12z02    clear=True
+    Input Text    ${Preset13z01}    Preset13z01    clear=True
+    Sleep    9s
+    Take My Screenshot
