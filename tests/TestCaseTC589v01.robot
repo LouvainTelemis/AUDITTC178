@@ -10,8 +10,8 @@ Library    BuiltIn
 
 *** Variables ***
 
-# ${MyHostname}    desktopj93k2ev
-${MyHostname}    demo1911
+${MyHostname}    desktopj93k2ev
+# ${MyHostname}    demo1911
 ${MyRepositoryName}    AUDITTC178
 # You must create the folder "MyFolderWorkspace" manually in the computer of Jenkins master, in case you test the script with the computer of Jenkins master
 ${MyFolderWorkspace}    C:/000/jenkins/workspace
@@ -239,6 +239,42 @@ ${CriterionLocator10}    name=patientName
 ${CriterionLocator11}    name=accessionNumber
 ${CriterionLocator12}    name=documentId
 
+# List of event names
+
+${EventName01}    DOC_ACCESS
+${EventName02}    DOC_TRANSFER
+${EventName03}    DOC_START_TRANSFER
+${EventName04}    DOC_FORWARD
+${EventName05}    DOC_EXPORT
+${EventName06}    DOC_IMPORT
+${EventName07}    DOC_REPORT
+${EventName08}    DOC_STORE
+${EventName09}    DOC_DELETED
+${EventName10}    DOC_QUERY
+${EventName11}    MEASURES_MGT
+${EventName12}    PATIENT_ACCESS
+${EventName13}    WORKLIST_MGT
+${EventName14}    LABEL_MGT
+${EventName15}    MESSAGES_MGT
+${EventName16}    NOTES_MGT
+${EventName17}    CONSENT_MGT
+${EventName18}    APP_START
+${EventName19}    APP_STOP
+${EventName20}    USER_LOGIN
+${EventName21}    USER_LOGOUT
+${EventName22}    USER_MGT
+${EventName23}    ROLE_MGT
+${EventName24}    PRESET_MGT
+${EventName25}    PROPERTIES_MGT
+${EventName26}    BUNDLE_ACQUIRED
+${EventName27}    FILMER
+${EventName28}    TASK_MGT
+${EventName29}    JOB_START
+${EventName30}    JOB_STOP
+${EventName31}    JOB_CANCEL
+
+
+
 *** Keywords ***
 
 Remove My Previous Results
@@ -447,6 +483,34 @@ Fill My Input Box Of Search Criterion In Tab Search
     Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    ${MySearchCriterion}    ${MySearchCriterionValue}
 
 
+Check And Test My Event Name
+    [Documentation]    Test and check the event name with the tab Presets
+    [Arguments]    ${MyEventName}
+    Wait Until Element Is Visible    link=Presets    timeout=15s
+    Element Should Be Visible    link=Presets
+    Click Link    link=Presets
+    Wait Until Page Contains    All audit events related to its type    timeout=15s
+    Wait Until Element Is Visible    ${Preset01z01}    timeout=15s
+    Element Should Be Visible    ${Preset01z01}
+    # Select one item from the combo box
+    Click Element    ${Preset01z01}
+    Wait Until Element Is Visible    xpath=//span[contains(.,'${MyEventName}')]    timeout=15s
+    Element Should Be Visible    xpath=//span[contains(.,'${MyEventName}')]
+    Click Element    xpath=//span[contains(.,'${MyEventName}')]
+    Wait Until Element Contains    xpath=//span[contains(.,'${MyEventName}')]    ${MyEventName}    timeout=15s
+    Wait Until Keyword Succeeds    15s    3s    Element Should Contain    xpath=//span[contains(.,'${MyEventName}')]    ${MyEventName}
+    # Check the button Search
+    Wait Until Element Is Visible    ${Preset01S}    timeout=15s
+    Element Should Be Visible    ${Preset01S}
+    Click Element    ${Preset01S}
+    Sleep    2s
+    Wait Until Page Contains    Timestamp    timeout=15s
+    Wait Until Page Contains    Event    timeout=15s
+    Wait Until Page Contains    ${MyEventName}    timeout=15s
+    Take My Screenshot
+    Sleep    1s
+
+
 My User Opens Internet Browser And Connects To My TMP Web
     [Documentation]    The user opens Internet browser and then connects to the website of TMP Web
     [Arguments]    ${MyUserLogin}    ${MyUserPassword}
@@ -544,13 +608,224 @@ Test06
     # The line below is only for tests
     # Unselect Frame
 
-Test 89
+Test07
+    [Documentation]    Check that 13 presets exists in the tab or page of Predefined search
+    [Tags]    CRITICALITY HIGH
+    Wait Until Element Is Visible    link=Presets    timeout=15s
+    Element Should Be Visible    link=Presets
+    Click Link    link=Presets
+    # Check 13 presets
+    Wait Until Page Contains    All audit events related to its type    timeout=15s
+    Wait Until Page Contains    Who made a Dicom Query    timeout=15s
+    Wait Until Page Contains    Who made a Dicom Send    timeout=15s
+    Wait Until Page Contains    Who removed a label    timeout=15s
+    Wait Until Page Contains    All events related to an audit source    timeout=15s
+    Wait Until Page Contains    All events that happened between dates    timeout=15s
+    Wait Until Page Contains    All events related to a patient    timeout=15s
+    Wait Until Page Contains    Who accessed a patient    timeout=15s
+    Wait Until Page Contains    Who modified a patient    timeout=15s
+    Wait Until Page Contains    All events related to a document    timeout=15s
+    Wait Until Page Contains    Who accessed a document    timeout=15s
+    Wait Until Page Contains    Who deleted a document    timeout=15s
+    Wait Until Page Contains    Who modified a study    timeout=15s
+
+Test08
+    [Documentation]    Open the tab Search of Audit and check the user interface (12 search criteria)
+    [Tags]    CRITICALITY HIGH
+    Wait Until Element Is Visible    link=Search    timeout=15s
+    Element Should Be Visible    link=Search
+    Click Link    link=Search
+    # Check 12 search criteria
+    Wait Until Element Is Visible    ${CriterionLocator01}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator02}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator03}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator04}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator05}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator06}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator07}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator08}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator09}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator10}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator11}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator12}    timeout=15s
+
+Test09
+    [Documentation]    Check that the table of Search is visible in the web page
+    [Tags]    CRITICALITY NORMAL
+    # Check 7 columns of the table
+    Wait Until Page Contains    Outcome    timeout=15s
+    Wait Until Page Contains    Timestamp    timeout=15s
+    Wait Until Page Contains    Event    timeout=15s
+    Wait Until Page Contains    User    timeout=15s
+    Wait Until Page Contains    Source    timeout=15s
+    Wait Until Page Contains    Destination    timeout=15s
+    Wait Until Page Contains    Patient    timeout=15s
+    Wait Until Page Contains    Accession Number    timeout=15s
+
+Test10
+    [Documentation]    Check and test the audited event #01 (DOC_ACCESS)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName01}
+
+Test11
+    [Documentation]    Check and test the audited event #02 (DOC_TRANSFER)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName02}
+
+Test12
+    [Documentation]    Check and test the audited event #03 (DOC_START_TRANSFER)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName03}
+
+Test13
+    [Documentation]    Check and test the audited event #04 (DOC_FORWARD)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName04}
+
+Test14
+    [Documentation]    Check and test the audited event #05 (DOC_EXPORT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName05}
+
+Test15
+    [Documentation]    Check and test the audited event #06 (DOC_IMPORT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName06}
+
+Test16
+    [Documentation]    Check and test the audited event #07 (DOC_REPORT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName07}
+
+Test17
+    [Documentation]    Check and test the audited event #08 (DOC_STORE)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName08}
+
+Test18
+    [Documentation]    Check and test the audited event #09 (DOC_DELETED)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName09}
+
+
+Test19
+    [Documentation]    Check and test the audited event #10 (DOC_QUERY)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName10}
+
+Test20
+    [Documentation]    Check and test the audited event #11 (MEASURES_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName11}
+
+Test21
+    [Documentation]    Check and test the audited event #12 (PATIENT_ACCESS)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName12}
+
+Test22
+    [Documentation]    Check and test the audited event #13 (WORKLIST_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName13}
+
+Test23
+    [Documentation]    Check and test the audited event #14 (LABEL_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName14}
+
+Test24
+    [Documentation]    Check and test the audited event #15 (MESSAGES_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName15}
+
+Test25
+    [Documentation]    Check and test the audited event #16 (NOTES_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName16}
+
+Test26
+    [Documentation]    Check and test the audited event #17 (CONSENT_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName17}
+
+Test27
+    [Documentation]    Check and test the audited event #18 (APP_START)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName18}
+
+Test28
+    [Documentation]    Check and test the audited event #19 (APP_STOP)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName19}
+
+
+Test29
+    [Documentation]    Check and test the audited event #20 (USER_LOGIN)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName20}
+
+Test30
+    [Documentation]    Check and test the audited event #21 (USER_LOGOUT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName21}
+
+Test31
+    [Documentation]    Check and test the audited event #22 (USER_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName22}
+
+Test32
+    [Documentation]    Check and test the audited event #23 (ROLE_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName23}
+
+Test33
+    [Documentation]    Check and test the audited event #24 (PRESET_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName24}
+
+Test34
+    [Documentation]    Check and test the audited event #25 (PROPERTIES_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName25}
+
+Test35
+    [Documentation]    Check and test the audited event #26 (BUNDLE_ACQUIRED)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName26}
+
+Test36
+    [Documentation]    Check and test the audited event #27 (FILMER)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName27}
+
+Test37
+    [Documentation]    Check and test the audited event #28 (TASK_MGT)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName28}
+
+Test38
+    [Documentation]    Check and test the audited event #29 (JOB_START)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName29}
+
+Test39
+    [Documentation]    Check and test the audited event #30 (JOB_STOP)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName30}
+
+Test40
+    [Documentation]    Check and test the audited event #31 (JOB_CANCEL)
+    [Tags]    CRITICALITY NORMAL
+    Check And Test My Event Name    ${EventName31}
+
+
+Test41
     [Documentation]    Quit the user interface of Audit
     [Tags]    CRITICALITY NORMAL
-    Take My Screenshot
     Unselect Frame
 
-Test 90
+Test42
     [Documentation]    User exits Site Manager
     [Tags]    CRITICALITY NORMAL
     # Before logging out the user session, check that the iframe has been deselected

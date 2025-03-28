@@ -545,7 +545,7 @@ Test06
     # Unselect Frame
 
 
-Test 07
+Test07
     [Documentation]    Check that 13 presets exists in the tab or page of Predefined search
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Presets    timeout=15s
@@ -566,7 +566,7 @@ Test 07
     Wait Until Page Contains    Who deleted a document    timeout=15s
     Wait Until Page Contains    Who modified a study    timeout=15s
 
-Test 08
+Test08
     [Documentation]    Check and test the preset #01 (All audit events related to its type)
     [Tags]    CRITICALITY NORMAL
     Wait Until Page Contains    ${PresetName01}    timeout=15s
@@ -600,67 +600,67 @@ Test 08
     # ${MyValue} =    Get Text    ${Preset01z01}
     # Log    ${MyValue}
 
-Test 09
+Test09
     [Documentation]    Check and test the preset #02 (Who made a Dicom Query) (Accession Number + Document ID)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName02}    ${Preset02z01}    ${Preset02z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset02C}    ${Preset02S}
 
-Test 10
+Test10
     [Documentation]    Check and test the preset #03 (Who made a Dicom Send) (Accession Number + Document ID)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName03}    ${Preset03z01}    ${Preset03z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset03C}    ${Preset03S}
 
-Test 11
+Test11
     [Documentation]    Check and test the preset #04 (Who removed a label) (Label Name + Accession Number)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName04}    ${Preset04z01}    ${Preset04z02}    ${MyLabelName1}    ${MyPatient1AccessionNumber}    ${Preset04C}    ${Preset04S}
 
-Test 12
+Test12
     [Documentation]    Check and test the preset #05 (All events related to an audit source (TMRHE, TMAA, TMP, Uploader...)) (Source)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Only One Input Box    ${PresetName05}    ${Preset05z01}    ${MySource1}    ${Preset05C}    ${Preset05S}
 
-Test 13
+Test13
     [Documentation]    Check and test the preset #06 (All events that happened between dates) (Date From + Date To MM/DD/YYYY)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName06}    ${Preset06z01}    ${Preset06z02}    ${MyDateFrom1}    ${MyDateTo1}    ${Preset06C}    ${Preset06S}
 
-Test 14
+Test14
     [Documentation]    Check and test the preset #07 (All events related to a patient) (Patient Name + Patient ID)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName07}    ${Preset07z01}    ${Preset07z02}    ${MyPatient1FamilyName}    ${MyPatient1PatientID}    ${Preset07C}    ${Preset07S}
 
-Test 15
+Test15
     [Documentation]    Check and test the preset #08 (Who accessed a patient) (Patient Name + Patient ID)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName08}    ${Preset08z01}    ${Preset08z02}    ${MyPatient1FamilyName}    ${MyPatient1PatientID}    ${Preset08C}    ${Preset08S}
 
-Test 16
+Test16
     [Documentation]    Check and test the preset #09 (Who modified a patient) (Patient Name + Patient ID)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName09}    ${Preset09z01}    ${Preset09z02}    ${MyPatient1FamilyName}    ${MyPatient1PatientID}    ${Preset09C}    ${Preset09S}
 
-Test 17
+Test17
     [Documentation]    Check and test the preset #10 (All events related to a document) (Accession Number + Document ID)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName10}    ${Preset10z01}    ${Preset10z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset10C}    ${Preset10S}
 
-Test 18
+Test18
     [Documentation]    Check and test the preset #11 (Who accessed a document) (Accession Number + Document ID)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName11}    ${Preset11z01}    ${Preset11z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset11C}    ${Preset11S}
 
-Test 19
+Test19
     [Documentation]    Check and test the preset #12 (Who deleted a document) (Accession Number + Document ID)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Two Input Boxes    ${PresetName12}    ${Preset12z01}    ${Preset12z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset12C}    ${Preset12S}
 
-Test 20
+Test20
     [Documentation]    Check and test the preset #13 (Who modified a study) (Accession Number)
     [Tags]    CRITICALITY NORMAL
     Check My Predefined Search With Only One Input Box    ${PresetName13}    ${Preset13z01}    ${MyPatient1AccessionNumber}    ${Preset13C}    ${Preset13S}
 
-Test 21
+Test21
     [Documentation]    Check and test the buttons Clear and Search of the page (Predefined search)
     [Tags]    CRITICALITY NORMAL
     # Make the test with the preset (All audit events related to its type)
@@ -694,7 +694,7 @@ Test 21
     # The next tests check the tab Search
 
 
-Test 22
+Test22
     [Documentation]    Open the tab Search of Audit and check the user interface (12 search criteria)
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Search    timeout=15s
@@ -714,7 +714,7 @@ Test 22
     Wait Until Element Is Visible    ${CriterionLocator11}    timeout=15s
     Wait Until Element Is Visible    ${CriterionLocator12}    timeout=15s
 
-Test 23
+Test23
     [Documentation]    Check that the table of Search is visible in the web page
     [Tags]    CRITICALITY NORMAL
     # Check 7 columns of the table
@@ -727,7 +727,7 @@ Test 23
     Wait Until Page Contains    Patient    timeout=15s
     Wait Until Page Contains    Accession Number    timeout=15s
 
-Test 24
+Test24
     [Documentation]    Test and check the search criterion #01 (Outcome) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Wait Until Element Is Visible    ${CriterionLocator01}    timeout=15s
@@ -755,17 +755,17 @@ Test 24
     ${MyValue} =    Get Text    ${CriterionLocator01}
     Log    ${MyValue}
 
-Test 25
+Test25
     [Documentation]    Test and check the search criterion #02 (Date From MM/DD/YYYY) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator02}    ${MyDateFrom1}
 
-Test 26
+Test26
     [Documentation]    Test and check the search criterion #03 (Date To MM/DD/YYYY) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator03}    ${MyDateTo1}
 
-Test 27
+Test27
     [Documentation]    Test and check the search criterion #04 (Action) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Wait Until Element Is Visible    ${CriterionLocator04}    timeout=15s
@@ -781,7 +781,7 @@ Test 27
     Click Element    xpath=//span[contains(.,' EXECUTE')]
     Wait Until Element Contains    ${CriterionLocator04}    EXECUTE    timeout=15s
 
-Test 28
+Test28
     [Documentation]    Test and check the search criterion #05 (Event) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Wait Until Element Is Visible    ${CriterionLocator05}    timeout=15s
@@ -806,43 +806,43 @@ Test 28
     Log    ${MyValue}
     Should Contain    ${MyValue}    FILMER
 
-Test 29
+Test29
     [Documentation]    Test and check the search criterion #06 (User) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator06}    ${SiteManagerUser2Login}
 
-Test 30
+Test30
     [Documentation]    Test and check the search criterion #07 (Source) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator07}    ${MySource1}
 
-Test 31
+Test31
     [Documentation]    Test and check the search criterion #08 (Destination) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator08}    ${MyDestination1}
 
-Test 32
+Test32
     [Documentation]    Test and check the search criterion #09 (Patient ID) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator09}    ${MyPatient1PatientID}
 
-Test 33
+Test33
     [Documentation]    Test and check the search criterion #10 (Patient Name) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator10}    ${MyPatient1FamilyName}
 
-Test 34
+Test34
     [Documentation]    Test and check the search criterion #11 (Accession Number) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator11}    ${MyPatient1AccessionNumber}
 
-Test 35
+Test35
     [Documentation]    Test and check the search criterion #12 (Document ID) in the tab Search
     [Tags]    CRITICALITY NORMAL
     Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator12}    ${MyPatient1DocId}
     Take My Screenshot
 
-Test 36
+Test36
     [Documentation]    Test and check the buttons Clear and Search
     [Tags]    CRITICALITY NORMAL
     Wait Until Element Is Visible    xpath=//button[contains(.,'Clear')]    timeout=15s
@@ -858,7 +858,7 @@ Test 36
     Take My Screenshot
     Unselect Frame
 
-Test 37
+Test37
     [Documentation]    User exits Site Manager
     [Tags]    CRITICALITY NORMAL
     # Before logging out the user session, check that the iframe has been deselected
