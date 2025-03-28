@@ -864,5 +864,3 @@ Test 37
     # Before logging out the user session, check that the iframe has been deselected
     Log Out My User Session Of Site Manager
     Close All Browsers
-    Sleep    1s
-
