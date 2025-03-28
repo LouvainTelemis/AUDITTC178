@@ -10,8 +10,8 @@ Library    BuiltIn
 
 *** Variables ***
 
-# ${MyHostname}    desktopj93k2ev
-${MyHostname}    demo1911
+${MyHostname}    desktopj93k2ev
+# ${MyHostname}    demo1911
 ${MyRepositoryName}    AUDITTC178
 # You must create the folder "MyFolderWorkspace" manually in the computer of Jenkins master, in case you test the script with the computer of Jenkins master
 ${MyFolderWorkspace}    C:/000/jenkins/workspace
@@ -224,6 +224,20 @@ ${Preset12S}    xpath=//div[6]/div/fieldset[3]/form/div[2]/div/button[2]
 ${Preset13C}    xpath=//fieldset[4]/form/div[2]/div/button
 ${Preset13S}    xpath=//fieldset[4]/form/div[2]/div/button[2]
 
+# Locators of search criteria in the tab Search
+
+${CriterionLocator01}    name=outcome
+${CriterionLocator02}    name=from
+${CriterionLocator03}    name=to
+${CriterionLocator04}    name=action
+${CriterionLocator05}    name=eventType
+${CriterionLocator06}    name=user
+${CriterionLocator07}    name=source
+${CriterionLocator08}    name=destination
+${CriterionLocator09}    name=patientId
+${CriterionLocator10}    name=patientName
+${CriterionLocator11}    name=accessionNumber
+${CriterionLocator12}    name=documentId
 
 *** Keywords ***
 
@@ -424,6 +438,15 @@ Check My Predefined Search With Only One Input Box
     Log    ${MyValue}
 
 
+Fill My Input Box Of Search Criterion In Tab Search
+    [Documentation]    Fill the input box of search criterion located in the tab Search
+    [Arguments]    ${MySearchCriterion}    ${MySearchCriterionValue}
+    Wait Until Element Is Visible    ${MySearchCriterion}    timeout=15s
+    Element Should Be Visible    ${MySearchCriterion}
+    Input Text    ${MySearchCriterion}    ${MySearchCriterionValue}    clear=True
+    Wait Until Keyword Succeeds    15s    3s    Textfield Value Should Be    ${MySearchCriterion}    ${MySearchCriterionValue}
+
+
 My User Opens Internet Browser And Connects To My TMP Web
     [Documentation]    The user opens Internet browser and then connects to the website of TMP Web
     [Arguments]    ${MyUserLogin}    ${MyUserPassword}
@@ -468,6 +491,7 @@ Log Out My User Session Of TM-Uploader
 
 
 
+
 *** Test Cases ***
 
 Test01
@@ -505,32 +529,99 @@ Test03
     # Unselect Frame
 
 Test 04
-    [Documentation]    Check that 13 presets exists in the tab or page of Predefined search
+    [Documentation]    Open the tab Search of Audit and check the user interface (12 search criteria)
     [Tags]    CRITICALITY HIGH
-    Wait Until Element Is Visible    link=Presets    timeout=15s
-    Element Should Be Visible    link=Presets
-    Click Link    link=Presets
-    # Check 13 presets
-    Wait Until Page Contains    All audit events related to its type    timeout=15s
-    Wait Until Page Contains    Who made a Dicom Query    timeout=15s
-    Wait Until Page Contains    Who made a Dicom Send    timeout=15s
-    Wait Until Page Contains    Who removed a label    timeout=15s
-    Wait Until Page Contains    All events related to an audit source    timeout=15s
-    Wait Until Page Contains    All events that happened between dates    timeout=15s
-    Wait Until Page Contains    All events related to a patient    timeout=15s
-    Wait Until Page Contains    Who accessed a patient    timeout=15s
-    Wait Until Page Contains    Who modified a patient    timeout=15s
-    Wait Until Page Contains    All events related to a document    timeout=15s
-    Wait Until Page Contains    Who accessed a document    timeout=15s
-    Wait Until Page Contains    Who deleted a document    timeout=15s
-    Wait Until Page Contains    Who modified a study    timeout=15s
+    Wait Until Element Is Visible    link=Search    timeout=15s
+    Element Should Be Visible    link=Search
+    Click Link    link=Search
+    # Check 12 search criteria
+    Wait Until Element Is Visible    ${CriterionLocator01}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator02}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator03}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator04}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator05}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator06}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator07}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator08}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator09}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator10}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator11}    timeout=15s
+    Wait Until Element Is Visible    ${CriterionLocator12}    timeout=15s
 
 Test 05
-    [Documentation]    Check and test the preset #01 (All audit events related to its type)
+    [Documentation]    Check that the table of Search is visible in the web page
     [Tags]    CRITICALITY NORMAL
-    Wait Until Page Contains    ${PresetName01}    timeout=15s
-    Wait Until Element Is Visible    ${Preset01z01}    timeout=15s
-    Click Element    ${Preset01z01}
+    # Check 7 columns of the table
+    Wait Until Page Contains    Outcome    timeout=15s
+    Wait Until Page Contains    Timestamp    timeout=15s
+    Wait Until Page Contains    Event    timeout=15s
+    Wait Until Page Contains    User    timeout=15s
+    Wait Until Page Contains    Source    timeout=15s
+    Wait Until Page Contains    Destination    timeout=15s
+    Wait Until Page Contains    Patient    timeout=15s
+    Wait Until Page Contains    Accession Number    timeout=15s
+
+Test 06
+    [Documentation]    Test and check the search criterion #01 (Outcome) in the tab Search
+    [Tags]    CRITICALITY NORMAL
+    Wait Until Element Is Visible    ${CriterionLocator01}    timeout=15s
+    Element Should Be Visible    ${CriterionLocator01}
+    Click Element    ${CriterionLocator01}
+    # Select one item from the combo box Outcome
+    Wait Until Element Is Visible    xpath=//span[contains(.,' SUCCESS')]    timeout=15s
+    Wait Until Element Is Visible    xpath=//span[contains(.,' FAILURE')]    timeout=15s
+    Element Should Be Visible    xpath=//span[contains(.,' SUCCESS')]
+    Click Element    xpath=//span[contains(.,' SUCCESS')]
+    Wait Until Element Contains    ${CriterionLocator01}    SUCCESS    timeout=15s
+    # Please use the keyword Get Text instead of Get Value
+    ${MyValue} =    Get Text    ${CriterionLocator01}
+    Log    ${MyValue}
+    Should Contain    ${MyValue}    SUCCESS
+    # Empty the field(s)
+    Wait Until Element Is Visible    xpath=//button[contains(.,'Clear')]    timeout=15s
+    Wait Until Element Is Visible    css=.fa-search    timeout=15s
+    Click Element    css=.fa-search
+    Wait Until Page Contains    Previous    timeout=15s
+    Take My Screenshot
+    Click Button    xpath=//button[contains(.,'Clear')]
+    Wait Until Element Contains    ${CriterionLocator01}    Outcome    timeout=15s
+    # It does not work with the keyword Textfield Should Contain (Textfield Should Contain    name=outcome    Outcome)
+    ${MyValue} =    Get Text    ${CriterionLocator01}
+    Log    ${MyValue}
+
+Test 07
+    [Documentation]    Test and check the search criterion #02 (Date From MM/DD/YYYY) in the tab Search
+    [Tags]    CRITICALITY NORMAL
+    Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator02}    ${MyDateFrom1}
+
+Test 08
+    [Documentation]    Test and check the search criterion #03 (Date To MM/DD/YYYY) in the tab Search
+    [Tags]    CRITICALITY NORMAL
+    Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator03}    ${MyDateTo1}
+
+Test 09
+    [Documentation]    Test and check the search criterion #04 (Action) in the tab Search
+    [Tags]    CRITICALITY NORMAL
+    Wait Until Element Is Visible    ${CriterionLocator04}    timeout=15s
+    Element Should Be Visible    ${CriterionLocator04}
+    # Select one item from the combo box
+    Click Element    ${CriterionLocator04}
+    Wait Until Element Is Visible    xpath=//span[contains(.,' CREATE')]    timeout=15s
+    Wait Until Element Is Visible    xpath=//span[contains(.,' READ')]    timeout=15s
+    Wait Until Element Is Visible    xpath=//span[contains(.,' UPDATE')]    timeout=15s
+    Wait Until Element Is Visible    xpath=//span[contains(.,' DELETE')]    timeout=15s
+    Wait Until Element Is Visible    xpath=//span[contains(.,' EXECUTE')]    timeout=15s
+    Element Should Be Visible    xpath=//span[contains(.,' EXECUTE')]
+    Click Element    xpath=//span[contains(.,' EXECUTE')]
+    Wait Until Element Contains    ${CriterionLocator04}    EXECUTE    timeout=15s
+
+Test 10
+    [Documentation]    Test and check the search criterion #05 (Event) in the tab Search
+    [Tags]    CRITICALITY NORMAL
+    Wait Until Element Is Visible    ${CriterionLocator05}    timeout=15s
+    Element Should Be Visible    ${CriterionLocator05}
+    # Select one item from the combo box Event
+    Click Element    ${CriterionLocator05}
     Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_ACCESS')]    timeout=15s
     Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_FORWARD')]    timeout=15s
     Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_START_TRANSFER')]    timeout=15s
@@ -542,107 +633,68 @@ Test 05
     Wait Until Element Is Visible    xpath=//span[contains(.,'USER_LOGIN')]    timeout=15s
     Element Should Be Visible    xpath=//span[contains(.,'FILMER')]
     Click Element    xpath=//span[contains(.,'FILMER')]
-    Wait Until Element Contains    xpath=//span[contains(.,'FILMER')]    FILMER    timeout=15s
-    # You can also make the check with the keyword Get Text, the check fails with the keyword Get Value, you must use Get Text instead of Get Value
-    ${MyValue} =    Get Text    xpath=//span[contains(.,'FILMER')]
+    Sleep    2s
+    # The check fails with the keyword Wait Until Element Contains, see example below, you must check with the keyword Get Value, it does NOT work with the keyword Get Text
+    # Wait Until Element Contains    name=eventType    FILMER    timeout=15s
+    ${MyValue} =    Get Value    ${CriterionLocator05}
     Log    ${MyValue}
     Should Contain    ${MyValue}    FILMER
-    # It is the third solution to make the check
-    Wait Until Keyword Succeeds    15s    3s    Element Should Contain    xpath=//span[contains(.,'FILMER')]    FILMER
-    Take My Screenshot
-    # Check the buttons Clear and Search
-    Wait Until Element Is Visible    ${Preset01C}    timeout=15s
-    Wait Until Element Is Visible    ${Preset01S}    timeout=15s
-    Element Should Be Visible    ${Preset01C}
-    Click Element    ${Preset01C}
-    Wait Until Element Contains    ${Preset01z01}    Type    timeout=15s
-    # ${MyValue} =    Get Text    ${Preset01z01}
-    # Log    ${MyValue}
-
-Test 06
-    [Documentation]    Check and test the preset #02 (Who made a Dicom Query) (Accession Number + Document ID)
-    [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName02}    ${Preset02z01}    ${Preset02z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset02C}    ${Preset02S}
-
-Test 07
-    [Documentation]    Check and test the preset #03 (Who made a Dicom Send) (Accession Number + Document ID)
-    [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName03}    ${Preset03z01}    ${Preset03z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset03C}    ${Preset03S}
-
-Test 08
-    [Documentation]    Check and test the preset #04 (Who removed a label) (Label Name + Accession Number)
-    [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName04}    ${Preset04z01}    ${Preset04z02}    ${MyLabelName1}    ${MyPatient1AccessionNumber}    ${Preset04C}    ${Preset04S}
-
-Test 09
-    [Documentation]    Check and test the preset #05 (All events related to an audit source (TMRHE, TMAA, TMP, Uploader...)) (Source)
-    [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Only One Input Box    ${PresetName05}    ${Preset05z01}    ${MySource1}    ${Preset05C}    ${Preset05S}
-
-Test 10
-    [Documentation]    Check and test the preset #06 (All events that happened between dates) (Date From + Date To MM/DD/YYYY)
-    [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName06}    ${Preset06z01}    ${Preset06z02}    ${MyDateFrom1}    ${MyDateTo1}    ${Preset06C}    ${Preset06S}
 
 Test 11
-    [Documentation]    Check and test the preset #07 (All events related to a patient) (Patient Name + Patient ID)
+    [Documentation]    Test and check the search criterion #06 (User) in the tab Search
     [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName07}    ${Preset07z01}    ${Preset07z02}    ${MyPatient1FamilyName}    ${MyPatient1PatientID}    ${Preset07C}    ${Preset07S}
+    Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator06}    ${SiteManagerUser2Login}
 
 Test 12
-    [Documentation]    Check and test the preset #08 (Who accessed a patient) (Patient Name + Patient ID)
+    [Documentation]    Test and check the search criterion #07 (Source) in the tab Search
     [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName08}    ${Preset08z01}    ${Preset08z02}    ${MyPatient1FamilyName}    ${MyPatient1PatientID}    ${Preset08C}    ${Preset08S}
+    Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator07}    ${MySource1}
 
 Test 13
-    [Documentation]    Check and test the preset #09 (Who modified a patient) (Patient Name + Patient ID)
+    [Documentation]    Test and check the search criterion #08 (Destination) in the tab Search
     [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName09}    ${Preset09z01}    ${Preset09z02}    ${MyPatient1FamilyName}    ${MyPatient1PatientID}    ${Preset09C}    ${Preset09S}
+    Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator08}    ${MyDestination1}
 
 Test 14
-    [Documentation]    Check and test the preset #10 (All events related to a document) (Accession Number + Document ID)
+    [Documentation]    Test and check the search criterion #09 (Patient ID) in the tab Search
     [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName10}    ${Preset10z01}    ${Preset10z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset10C}    ${Preset10S}
+    Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator09}    ${MyPatient1PatientID}
 
 Test 15
-    [Documentation]    Check and test the preset #11 (Who accessed a document) (Accession Number + Document ID)
+    [Documentation]    Test and check the search criterion #10 (Patient Name) in the tab Search
     [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName11}    ${Preset11z01}    ${Preset11z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset11C}    ${Preset11S}
+    Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator10}    ${MyPatient1FamilyName}
 
 Test 16
-    [Documentation]    Check and test the preset #12 (Who deleted a document) (Accession Number + Document ID)
+    [Documentation]    Test and check the search criterion #11 (Accession Number) in the tab Search
     [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Two Input Boxes    ${PresetName12}    ${Preset12z01}    ${Preset12z02}    ${MyPatient1AccessionNumber}    ${MyPatient1DocId}    ${Preset12C}    ${Preset12S}
+    Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator11}    ${MyPatient1AccessionNumber}
 
 Test 17
-    [Documentation]    Check and test the preset #13 (Who modified a study) (Accession Number)
+    [Documentation]    Test and check the search criterion #12 (Document ID) in the tab Search
     [Tags]    CRITICALITY NORMAL
-    Check My Predefined Search With Only One Input Box    ${PresetName13}    ${Preset13z01}    ${MyPatient1AccessionNumber}    ${Preset13C}    ${Preset13S}
-
-Test 18
-    [Documentation]    Check and test the buttons Clear and Search of the page (Predefined search)
-    [Tags]    CRITICALITY NORMAL
-    # Make the test with the preset (All audit events related to its type)
-    Wait Until Page Contains    ${PresetName01}    timeout=15s
-    Wait Until Element Is Visible    ${Preset01z01}    timeout=15s
-    # Select one item from the combo box
-    Click Element    ${Preset01z01}
-    Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_ACCESS')]    timeout=15s
-    Element Should Be Visible    xpath=//span[contains(.,'DOC_ACCESS')]
-    Click Element    xpath=//span[contains(.,'DOC_ACCESS')]
-    Wait Until Element Contains    xpath=//span[contains(.,'DOC_ACCESS')]    DOC_ACCESS    timeout=15s
-    # You can also make the check with the keyword Get Text, the check fails with the keyword Get Value, you must use Get Text instead of Get Value
-    ${MyValue} =    Get Text    xpath=//span[contains(.,'DOC_ACCESS')]
-    Log    ${MyValue}
-    Should Contain    ${MyValue}    DOC_ACCESS
-    # It is the third solution to make the check
-    Wait Until Keyword Succeeds    15s    3s    Element Should Contain    xpath=//span[contains(.,'DOC_ACCESS')]    DOC_ACCESS
-    # Check the buttons Clear and Search
-    Wait Until Element Is Visible    ${Preset01C}    timeout=15s
-    Wait Until Element Is Visible    ${Preset01S}    timeout=15s
-    Element Should Be Visible    ${Preset01S}
-    Click Element    ${Preset01S}
-    Wait Until Page Contains    Outcome    timeout=15s
-    Wait Until Page Contains    Timestamp    timeout=15s
+    Fill My Input Box Of Search Criterion In Tab Search    ${CriterionLocator12}    ${MyPatient1DocId}
     Take My Screenshot
 
+Test 18
+    [Documentation]    Test and check the buttons Clear and Search
+    [Tags]    CRITICALITY NORMAL
+    Wait Until Element Is Visible    xpath=//button[contains(.,'Clear')]    timeout=15s
+    Wait Until Element Is Visible    css=.fa-search    timeout=15s
+    Element Should Be Visible    xpath=//button[contains(.,'Clear')]
+    Element Should Be Visible    css=.fa-search
+    # Empty all the fields
+    Click Button    xpath=//button[contains(.,'Clear')]
+    Wait Until Element Contains    name=patientName    ${EMPTY}    timeout=15s
+    Textfield Value Should Be    name=patientName    ${EMPTY}
+    ${MyValue} =    Get Text    name=patientName
+    Log    ${MyValue}
+    Take My Screenshot
+    Unselect Frame
+
+Test90
+    [Documentation]    User exits Site Manager
+    [Tags]    CRITICALITY NORMAL
+    # Before logging out the user session, check that the iframe has been deselected
+    Log Out My User Session Of Site Manager
+    Close All Browsers
