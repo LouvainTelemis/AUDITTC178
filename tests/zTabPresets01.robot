@@ -397,7 +397,7 @@ Test02
     # Unselect Frame
 
 Test 03
-    [Documentation]    Test the tab Presets
+    [Documentation]    Check that 13 presets exists in the tab or page of Predefined search
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Presets    timeout=15s
     Element Should Be Visible    link=Presets
@@ -416,7 +416,10 @@ Test 03
     Wait Until Page Contains    Who accessed a document    timeout=15s
     Wait Until Page Contains    Who deleted a document    timeout=15s
     Wait Until Page Contains    Who modified a study    timeout=15s
-    # Test the preset 01 All audit events related to its type
+
+Test 04
+    [Documentation]    Check and test the preset #01 (All audit events related to its type)
+    [Tags]    CRITICALITY NORMAL
     Wait Until Element Is Visible    xpath=//span[contains(.,'Type')]    timeout=15s
     Click Element    xpath=//span[contains(.,'Type')]
     Wait Until Element Is Visible    xpath=//span[contains(.,'DOC_ACCESS')]    timeout=15s
@@ -492,7 +495,7 @@ Test 03
     Sleep    5s
     Take My Screenshot
 
-Test 04
+Test 05
     [Documentation]    Test the tab Search
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Search    timeout=15s
@@ -507,7 +510,7 @@ Test 04
     Click Element    xpath=//span[contains(.,'FILMER')]
     Sleep    1s
 
-Test 05
+Test 06
     [Documentation]    Test the tab Presets (2nd time)
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Presets    timeout=15s
@@ -543,7 +546,7 @@ Test 05
     Sleep    3s
     Take My Screenshot
 
-Test 06
+Test 07
     [Documentation]    Test the tab Search (2nd time)
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Search    timeout=15s
@@ -558,7 +561,7 @@ Test 06
     Click Element    xpath=//span[contains(.,'FILMER')]
     Sleep    1s
 
-Test 07
+Test 08
     [Documentation]    Test the tab Presets (3rd time)
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Presets    timeout=15s
