@@ -502,6 +502,7 @@ Check And Test My Event Name
     # Check the button Search
     Wait Until Element Is Visible    ${Preset01S}    timeout=15s
     Element Should Be Visible    ${Preset01S}
+    Sleep    2s
     Click Element    ${Preset01S}
     Sleep    2s
     Wait Until Page Contains    Timestamp    timeout=15s
