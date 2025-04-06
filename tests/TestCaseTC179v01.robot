@@ -10,8 +10,8 @@ Library    BuiltIn
 
 *** Variables ***
 
-${MyHostname}    desktopj93k2ev
-# ${MyHostname}    demo1911
+# ${MyHostname}    desktopj93k2ev
+${MyHostname}    demo1911
 ${MyRepositoryName}    AUDITTC178
 # You must create the folder "MyFolderWorkspace" manually in the computer of Jenkins master, in case you test the script with the computer of Jenkins master
 ${MyFolderWorkspace}    C:/000/jenkins/workspace

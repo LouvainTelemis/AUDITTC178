@@ -18,8 +18,8 @@ Library    JSONLibrary
 ### Computer demo1911 is used for the automated tests of Telemis-Audit
 ### Computer demo7358 is used for the tests of API REST, probably I use only the computer demo1911 for both tests
 
-${MyHostname}    desktopj93k2ev
-# ${MyHostname}    demo1911
+# ${MyHostname}    desktopj93k2ev
+${MyHostname}    demo1911
 # ${MyHostname}    demo7358
 
 ### ID of the scheduled task for testing Telemis-Audit
@@ -27,8 +27,8 @@ ${MyHostname}    desktopj93k2ev
 ### Computer demo1911 for the automated tests of Telemis-Audit
 ### Computer demo9109 for tests with the virtual machine
 
-${MyScheduledTaskID01}    vZYCPTDhMwuOpzg1
-# ${MyScheduledTaskID01}    8qEdvUX6DwNiWpMg
+# ${MyScheduledTaskID01}    vZYCPTDhMwuOpzg1
+${MyScheduledTaskID01}    8qEdvUX6DwNiWpMg
 # ${MyScheduledTaskID01}    lCdsS8mQ7XxmyHxE
 
 ### docId for testing Telemis-Repository
@@ -36,8 +36,8 @@ ${MyScheduledTaskID01}    vZYCPTDhMwuOpzg1
 ### Computer demo1911 for the automated tests of Telemis-Audit
 ### Computer demo9109 for tests with the virtual machine
 
-${MyPatient1DocId}    A2.sim.a192.be.simon.P1.8.1
-# ${MyPatient1DocId}    A2.sim.d2b8.be.simon.P1.1
+# ${MyPatient1DocId}    A2.sim.a192.be.simon.P1.8.1
+${MyPatient1DocId}    A2.sim.d2b8.be.simon.P1.1.1
 # ${MyPatient1DocId}    A2.sim.cf61.be.simon.P1.0
 
 

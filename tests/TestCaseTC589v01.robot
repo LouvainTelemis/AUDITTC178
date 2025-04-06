@@ -558,34 +558,34 @@ Log Out My User Session Of TM-Uploader
 
 *** Test Cases ***
 
-Test01
+TEST01
     [Documentation]    Reset the test results
     [Tags]    CRITICALITY LOW
     Remove My Previous Results
 
-Test02
+TEST02
     [Documentation]    Check that Site Manager is running
     [Tags]    CRITICALITY NORMAL
     Check That Site Manager Is Running
 
-Test03
+TEST03
     [Documentation]    Check the version number of Site Manager
     [Tags]    CRITICALITY NORMAL
     Check Version Of Site Manager
 
-Test04
+TEST04
     [Documentation]    Check that Audit is running, and then check the version number of the application
     [Tags]    CRITICALITY NORMAL
     Check That Telemis Entity Is Running    ${MyEntityPort1}
     Check Version Of Telemis Entity    ${MyEntityName1}    ${MyEntityPort1}
 
-Test05
+TEST05
     [Documentation]    User enters the login and password to access Site Manager
     [Tags]    CRITICALITY HIGH
     My User Opens Internet Browser And Connects To Site Manager    ${SiteManagerUser1Login}    ${SiteManagerUser1Password}
     Take My Screenshot
 
-Test06
+TEST06
     [Documentation]    User selects and opens the interface of Audit
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Audit    timeout=15s
@@ -608,7 +608,7 @@ Test06
     # The line below is only for tests
     # Unselect Frame
 
-Test07
+TEST07
     [Documentation]    Check that 13 presets exists in the tab or page of Predefined search
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Presets    timeout=15s
@@ -629,7 +629,7 @@ Test07
     Wait Until Page Contains    Who deleted a document    timeout=15s
     Wait Until Page Contains    Who modified a study    timeout=15s
 
-Test08
+TEST08
     [Documentation]    Open the tab Search of Audit and check the user interface (12 search criteria)
     [Tags]    CRITICALITY HIGH
     Wait Until Element Is Visible    link=Search    timeout=15s
@@ -649,7 +649,7 @@ Test08
     Wait Until Element Is Visible    ${CriterionLocator11}    timeout=15s
     Wait Until Element Is Visible    ${CriterionLocator12}    timeout=15s
 
-Test09
+TEST09
     [Documentation]    Check that the table of Search is visible in the web page
     [Tags]    CRITICALITY NORMAL
     # Check 7 columns of the table
@@ -662,170 +662,170 @@ Test09
     Wait Until Page Contains    Patient    timeout=15s
     Wait Until Page Contains    Accession Number    timeout=15s
 
-Test10
+TEST10
     [Documentation]    Check and test the audited event #01 (DOC_ACCESS)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName01}
 
-Test11
+TEST11
     [Documentation]    Check and test the audited event #02 (DOC_TRANSFER)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName02}
 
-Test12
+TEST12
     [Documentation]    Check and test the audited event #03 (DOC_START_TRANSFER)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName03}
 
-Test13
+TEST13
     [Documentation]    Check and test the audited event #04 (DOC_FORWARD)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName04}
 
-Test14
+TEST14
     [Documentation]    Check and test the audited event #05 (DOC_EXPORT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName05}
 
-Test15
+TEST15
     [Documentation]    Check and test the audited event #06 (DOC_IMPORT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName06}
 
-Test16
+TEST16
     [Documentation]    Check and test the audited event #07 (DOC_REPORT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName07}
 
-Test17
+TEST17
     [Documentation]    Check and test the audited event #08 (DOC_STORE)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName08}
 
-Test18
+TEST18
     [Documentation]    Check and test the audited event #09 (DOC_DELETED)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName09}
 
 
-Test19
+TEST19
     [Documentation]    Check and test the audited event #10 (DOC_QUERY)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName10}
 
-Test20
+TEST20
     [Documentation]    Check and test the audited event #11 (MEASURES_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName11}
 
-Test21
+TEST21
     [Documentation]    Check and test the audited event #12 (PATIENT_ACCESS)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName12}
 
-Test22
+TEST22
     [Documentation]    Check and test the audited event #13 (WORKLIST_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName13}
 
-Test23
+TEST23
     [Documentation]    Check and test the audited event #14 (LABEL_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName14}
 
-Test24
+TEST24
     [Documentation]    Check and test the audited event #15 (MESSAGES_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName15}
 
-Test25
+TEST25
     [Documentation]    Check and test the audited event #16 (NOTES_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName16}
 
-Test26
+TEST26
     [Documentation]    Check and test the audited event #17 (CONSENT_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName17}
 
-Test27
+TEST27
     [Documentation]    Check and test the audited event #18 (APP_START)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName18}
 
-Test28
+TEST28
     [Documentation]    Check and test the audited event #19 (APP_STOP)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName19}
 
 
-Test29
+TEST29
     [Documentation]    Check and test the audited event #20 (USER_LOGIN)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName20}
 
-Test30
+TEST30
     [Documentation]    Check and test the audited event #21 (USER_LOGOUT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName21}
 
-Test31
+TEST31
     [Documentation]    Check and test the audited event #22 (USER_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName22}
 
-Test32
+TEST32
     [Documentation]    Check and test the audited event #23 (ROLE_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName23}
 
-Test33
+TEST33
     [Documentation]    Check and test the audited event #24 (PRESET_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName24}
 
-Test34
+TEST34
     [Documentation]    Check and test the audited event #25 (PROPERTIES_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName25}
 
-Test35
+TEST35
     [Documentation]    Check and test the audited event #26 (BUNDLE_ACQUIRED)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName26}
 
-Test36
+TEST36
     [Documentation]    Check and test the audited event #27 (FILMER)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName27}
 
-Test37
+TEST37
     [Documentation]    Check and test the audited event #28 (TASK_MGT)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName28}
 
-Test38
+TEST38
     [Documentation]    Check and test the audited event #29 (JOB_START)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName29}
 
-Test39
+TEST39
     [Documentation]    Check and test the audited event #30 (JOB_STOP)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName30}
 
-Test40
+TEST40
     [Documentation]    Check and test the audited event #31 (JOB_CANCEL)
     [Tags]    CRITICALITY NORMAL
     Check And Test My Event Name    ${EventName31}
 
 
-Test41
+TEST41
     [Documentation]    Quit the user interface of Audit
     [Tags]    CRITICALITY NORMAL
     Unselect Frame
 
-Test42
+TEST42
     [Documentation]    User exits Site Manager
     [Tags]    CRITICALITY NORMAL
     # Before logging out the user session, check that the iframe has been deselected
