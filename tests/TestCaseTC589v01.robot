@@ -496,7 +496,9 @@ Check And Test My Event Name
     Click Element    ${Preset01z01}
     Wait Until Element Is Visible    xpath=//span[contains(.,'${MyEventName}')]    timeout=15s
     Element Should Be Visible    xpath=//span[contains(.,'${MyEventName}')]
+    Sleep    1s
     Click Element    xpath=//span[contains(.,'${MyEventName}')]
+    Sleep    1s
     Wait Until Element Contains    xpath=//span[contains(.,'${MyEventName}')]    ${MyEventName}    timeout=15s
     Wait Until Keyword Succeeds    15s    3s    Element Should Contain    xpath=//span[contains(.,'${MyEventName}')]    ${MyEventName}
     # Check the button Search
